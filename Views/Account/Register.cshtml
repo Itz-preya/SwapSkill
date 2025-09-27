@@ -1,0 +1,121 @@
+@{
+    Layout = null;
+}
+@model SkillSwapApp.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+<link rel="stylesheet" href="~/css/auth.css" />
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 style="text-align:center;">Join Skill Swap</h2>
+        <div style="text-align:center;color:#cbe8ff;margin-bottom:1rem;">Start teaching and learning with peers today</div>
+        <div class="auth-tabs">
+            <button type="button" data-tab="login" onclick="window.location.href='/Account/Login'">Log In</button>
+            <button type="button" class="active" data-tab="register" onclick="window.location.href='/Account/Register'">Sign Up</button>
+        </div>
+        <form asp-action="Register" method="post" class="auth-form register">
+            <label asp-for="FullName">Full Name</label>
+            <input asp-for="FullName" placeholder="First name" />
+            <span asp-validation-for="FullName"></span>
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" placeholder="Enter your email" />
+            <span asp-validation-for="Email"></span>
+            <label asp-for="OfferedSkill">Offered Skill</label>
+            <input asp-for="OfferedSkill" list="offeredSkills" placeholder="Select or type a skill" />
+            <datalist id="offeredSkills">
+                <option value="Programming" />
+                <option value="Web Development" />
+                <option value="Graphic Design" />
+                <option value="Video Editing" />
+                <option value="Photography" />
+                <option value="Data Analysis" />
+                <option value="Digital Marketing" />
+                <option value="Content Writing" />
+                <option value="UI/UX Design" />
+                <option value="Public Speaking" />
+                <option value="Music" />
+                <option value="Language Tutoring" />
+                <option value="Cooking" />
+                <option value="Fitness Training" />
+                <option value="Math Tutoring" />
+                <option value="Science Tutoring" />
+                <option value="Business Strategy" />
+                <option value="Accounting" />
+                <option value="Sewing" />
+                <option value="Crafting" />
+                <option value="Gardening" />
+                <option value="Car Repair" />
+                <option value="First Aid" />
+                <option value="Project Management" />
+                <option value="Cybersecurity" />
+                <option value="Cloud Computing" />
+                <option value="Machine Learning" />
+                <option value="DevOps" />
+                <option value="QA Testing" />
+                <option value="Networking" />
+                <option value="Other" />
+            </datalist>
+            <span asp-validation-for="OfferedSkill"></span>
+
+            <label asp-for="NeededSkill">Needed Skill</label>
+            <input asp-for="NeededSkill" list="neededSkills" placeholder="Select or type a skill" />
+            <datalist id="neededSkills">
+                <option value="Programming" />
+                <option value="Web Development" />
+                <option value="Graphic Design" />
+                <option value="Video Editing" />
+                <option value="Photography" />
+                <option value="Data Analysis" />
+                <option value="Digital Marketing" />
+                <option value="Content Writing" />
+                <option value="UI/UX Design" />
+                <option value="Public Speaking" />
+                <option value="Music" />
+                <option value="Language Tutoring" />
+                <option value="Cooking" />
+                <option value="Fitness Training" />
+                <option value="Math Tutoring" />
+                <option value="Science Tutoring" />
+                <option value="Business Strategy" />
+                <option value="Accounting" />
+                <option value="Sewing" />
+                <option value="Crafting" />
+                <option value="Gardening" />
+                <option value="Car Repair" />
+                <option value="First Aid" />
+                <option value="Project Management" />
+                <option value="Cybersecurity" />
+                <option value="Cloud Computing" />
+                <option value="Machine Learning" />
+                <option value="DevOps" />
+                <option value="QA Testing" />
+                <option value="Networking" />
+                <option value="Other" />
+            </datalist>
+            <span asp-validation-for="NeededSkill"></span>
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" type="password" placeholder="Create a password" />
+            <span asp-validation-for="Password"></span>
+            <button type="submit" class="btn">Create Account</button>
+        </form>
+    </div>
+    <div class="auth-info">
+        <div style="display:flex;align-items:center;gap:1rem;">
+            <span class="logo" style="font-size:2rem;">📖</span>
+            <span style="font-size:2rem;font-weight:700;color:#fff;">Skill Swap</span>
+        </div>
+        <h1>Learn from Peers,<br /><span>Teach Your Skills</span></h1>
+        <p>Join a community where students become teachers and knowledge flows freely. Share your expertise and learn new skills from talented peers.</p>
+        <div class="auth-features">
+            <div class="auth-feature">👥 <span>Peer Learning</span></div>
+            <div class="auth-feature">🧠 <span>Skill Exchange</span></div>
+            <div class="auth-feature">💬 <span>Real-time Chat</span></div>
+            <div class="auth-feature">📚 <span>Multiple Subjects</span></div>
+        </div>
+    </div>
+</div>
+<script src="~/js/auth.js"></script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

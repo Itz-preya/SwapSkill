@@ -1,0 +1,28 @@
+@model IEnumerable<SkillSwapApp.ViewModels.ChatListItemViewModel>
+
+<h2 style="color:#fff; margin-bottom:12px;">Chats</h2>
+<div class="chat-list">
+    @if (!Model.Any())
+    {
+        <div class="chat-empty">No chats yet.</div>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <a class="chat-item" asp-controller="Chat" asp-action="Chat" asp-route-userId="@item.PartnerId">
+                <div class="chat-avatar">@((item.PartnerName ?? "").FirstOrDefault().ToString().ToUpper())</div>
+                <div class="chat-main">
+                    <div class="chat-top">
+                        <div class="chat-name">@item.PartnerName</div>
+                        <div class="chat-time">@(item.LastMessageAt?.ToLocalTime().ToString("hh:mm tt") ?? "")</div>
+                    </div>
+                    <div class="chat-bottom">
+                        <div class="chat-preview">@item.LastMessage</div>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+    
+</div>

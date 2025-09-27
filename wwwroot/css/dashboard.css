@@ -1,0 +1,80 @@
+:root{--ds-bg:#0e1a26;--ds-card:#152534;--ds-text:#d5e1ec;--ds-muted:#93a4b5;--ds-accent:#11c5e6;}
+body.ds{background:var(--ds-bg);color:var(--ds-text);} 
+.ds-hero{background:var(--ds-bg);padding:48px 0 24px;}
+.ds-hero h1{color:#fff;margin-bottom:6px}
+.ds-hero .lead{color:var(--ds-muted)}
+.ds-searchbar{margin-top:18px}
+.ds-search-input{min-width:320px;max-width:560px;background:#0b1621;border:1px solid #203244;color:var(--ds-text)}
+.ds-subject-select{background:#0b1621;border:1px solid #203244;color:var(--ds-text);min-width:180px}
+.ds-filter-btn{background:var(--ds-accent);color:#022733;border:none}
+.ds-section h4{color:#fff;margin:8px 0 16px}
+.ds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.ds-card{background:var(--ds-card);border-radius:10px;padding:18px;border:1px solid #233748}
+.ds-card .ds-icon{font-size:32px;color:var(--ds-accent)}
+.ds-card .ds-title{color:#fff;font-weight:600;margin:8px 0}
+.ds-card .ds-meta{font-size:12px;color:var(--ds-muted);text-transform:uppercase;letter-spacing:.04em}
+.ds-card .ds-actions .btn{border:none}
+.ds-badge{background:rgba(17,197,230,.15);color:var(--ds-accent);font-size:12px;border-radius:20px;padding:2px 10px}
+.container-narrow{max-width:1120px;margin:0 auto}
+@media (max-width:576px){.ds-search-input{min-width:220px}}
+
+/* ===== Navbar (match landing.css look for non-home pages) ===== */
+.navbar{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;background:rgba(21,31,54,.98)!important;padding:12px 20px;box-shadow:0 2px 12px rgba(0,0,0,.08);backdrop-filter:blur(6px)}
+.navbar .navbar-brand{color:#00b4ff!important;font-weight:700}
+.navbar .nav-link{color:#fff!important;border-radius:6px;padding:6px 10px;margin:0 2px;transition:color .2s,background .2s}
+.navbar .nav-link:hover,.navbar .nav-link.active{color:#00b4ff!important;background:rgba(0,180,255,.08)}
+.navbar .btn-link.nav-link{color:#fff!important}
+.navbar .btn-link.nav-link:hover{color:#00b4ff!important;background:rgba(0,180,255,.08)}
+
+.tag{background:#0b1621;color:#cbe8ff;border:1px solid #203244;border-radius:20px;padding:4px 10px;font-size:.8rem}
+.lesson-footer{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.teacher{display:flex;align-items:center;gap:10px;color:#d5e1ec}
+.avatar{width:36px;height:36px;border-radius:50%;background:#0b1621;display:flex;align-items:center;justify-content:center;color:#7ecdf0;font-weight:800;border:1px solid #203244}
+.btn-row{display:flex;gap:10px}
+.swap-btn{background:#11c5e6;border:none;color:#062c3a;padding:9px 12px;border-radius:8px;font-weight:700;box-shadow:0 4px 12px rgba(17,197,230,.2)}
+.swap-btn:hover{filter:brightness(0.98)}
+.ghost-btn{background:rgba(0,180,255,.08);border:1px solid #1f3a4f;color:#7ecdf0;padding:9px 12px;border-radius:10px;font-weight:700}
+.ghost-btn:hover{background:rgba(0,180,255,.14)}
+
+/* Section heading spacing */
+.mb-3{margin-bottom:1rem!important}
+.mb-4{margin-bottom:1.5rem!important}
+.mt-2{margin-top:.5rem!important}
+
+/* ===== Simplified User Cards (Name, Offers, Needs, Request Swap) ===== */
+.user-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+.user-card{background:#132234;border:1px solid #233748;border-radius:14px;padding:18px;box-shadow:0 4px 18px rgba(0,0,0,.18);outline:none}
+.user-card:hover{transform:translateY(-4px);transition:transform .2s ease, box-shadow .2s ease;box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.user-card:focus{box-shadow:0 0 0 3px rgba(0,180,255,.25), 0 10px 28px rgba(0,0,0,.28)}
+.user-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.user-name{color:#fff;font-weight:800;font-size:1.12rem}
+.user-skill-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 0;color:var(--ds-text)}
+.user-skill-row .icon{opacity:.9;margin-right:6px}
+.user-skill-row .label{color:var(--ds-muted);font-weight:600}
+.user-skill-row .value{color:#cbe8ff}
+.user-actions{display:flex;justify-content:flex-end;margin-top:12px}
+
+/* Avatar size tuned for user-card header */
+.user-card .avatar{width:38px;height:38px;font-size:.95rem}
+
+/* Bigger, recolored Request Swap button */
+/* Pulse animation on click */
+@keyframes pulseOnce{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+.btn-pulse{animation:pulseOnce .25s ease}
+
+ /* ===== Chat List (WhatsApp-like) ===== */
+ .chat-list{background:var(--ds-card);border:1px solid #233748;border-radius:10px;overflow:hidden}
+ 
+ /* ===== Requests Panel (Pending/Sent) ===== */
+ .ds-panel{background:var(--ds-card);border:1px solid #233748;border-radius:10px;padding:16px 18px;margin-bottom:18px}
+ .ds-panel-title{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700;margin-bottom:10px}
+ .ds-panel-title .icon{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:2px solid #2a4258;color:#93a4b5;font-size:12px}
+ .empty-state{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:28px 10px;color:var(--ds-muted)}
+ .empty-state .empty-icon{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #2a4258;color:#2f5676;opacity:.8}
+ .req-table{width:100%;border-collapse:collapse}
+ .req-table th,.req-table td{padding:10px 12px;border-bottom:1px solid #1f3344;color:var(--ds-text)}
+ .req-table th{color:#cfe6ff;text-transform:uppercase;font-size:.8rem;letter-spacing:.04em;text-align:left}
+ .req-actions{display:flex;gap:10px}
+ .badge-done{background:#1f513a;color:#b7ffdf;border:1px solid #2e7a58;padding:3px 8px;border-radius:12px;font-size:.8rem}
+ .badge-wait{background:#4a3f16;color:#ffeaa3;border:1px solid #6d5a1c;padding:3px 8px;border-radius:12px;font-size:.8rem}
+ .badge-declined{background:#3b3b45;color:#c4c4d4;border:1px solid #505060;padding:3px 8px;border-radius:12px;font-size:.8rem}

@@ -1,0 +1,93 @@
+@{
+    var appName = "SkillSwapApp";
+    var isHome = Context.Request.Path.Value.ToLower() == "/" || Context.Request.Path.Value.ToLower() == "/home/index";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @appName</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
+    @if (isHome) { <link rel="stylesheet" href="~/css/landing.css" asp-append-version="true" /> }
+</head>
+<body class="ds">
+    @if (!isHome)
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">@appName</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            @if (User.Identity != null && User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Dashboard" asp-action="Home">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Dashboard" asp-action="Edit">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Dashboard" asp-action="ChatList">💬 Chat</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
+                                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    }
+    @if (!isHome)
+    {
+        <div class="container mt-4">
+            @RenderBody()
+        </div>
+    }
+    else
+    {
+        @RenderBody()
+    }
+    @if (!isHome)
+    {
+        <footer class="border-top footer text-muted mt-5">
+            <div class="container">
+                &copy; @DateTime.Now.Year - @appName
+            </div>
+        </footer>
+    }
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/dashboard.js" asp-append-version="true"></script>
+    @if (isHome) { <script src="~/js/landing.js" asp-append-version="true"></script> }
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

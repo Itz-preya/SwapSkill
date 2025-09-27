@@ -1,0 +1,108 @@
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model SkillSwapApp.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h2>Edit Your Profile</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<!-- Profile summary (read-only) -->
+<div id="profileSummary" class="ds-card user-card" style="margin-bottom:16px;">
+    <div class="user-header">
+        <div class="avatar">@Model.FullName?.FirstOrDefault()</div>
+        <div>
+            <div class="user-name">@Model.FullName</div>
+            <div class="ds-meta">@Model.UserName</div>
+        </div>
+    </div>
+    <div class="user-skill-row">
+        <span class="label">Email</span>
+        <span class="value">@Model.Email</span>
+    </div>
+    <div class="user-skill-row">
+        <span class="label">Offers</span>
+        <span class="value">@Model.OfferedSkill</span>
+    </div>
+    <div class="user-skill-row">
+        <span class="label">Needs</span>
+        <span class="value">@Model.NeededSkill</span>
+    </div>
+    <div class="user-actions">
+        <button id="btnEditProfile" type="button" class="swap-btn">Edit Profile</button>
+    </div>
+    <div class="mt-2" style="color:var(--ds-muted); font-size:.9rem">Click "Edit Profile" to update your details.</div>
+    <hr />
+    
+    </div>
+
+<!-- Edit form (initially hidden) -->
+<div id="editForm" style="display:none">
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" class="form-control" required />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" required />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" required type="email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="OfferedSkill"></label>
+        <input asp-for="OfferedSkill" class="form-control" required />
+        <span asp-validation-for="OfferedSkill" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NeededSkill"></label>
+        <input asp-for="NeededSkill" class="form-control" required />
+        <span asp-validation-for="NeededSkill" class="text-danger"></span>
+    </div>
+    <div class="btn-row">
+        <button type="submit" class="swap-btn">Save Changes</button>
+        <button id="btnCancelEdit" type="button" class="ghost-btn">Cancel</button>
+    </div>
+</form>
+</div>
+@section Scripts {
+    <script>
+        (function(){
+            const summary = document.getElementById('profileSummary');
+            const editForm = document.getElementById('editForm');
+            const btnEdit = document.getElementById('btnEditProfile');
+            const btnCancel = document.getElementById('btnCancelEdit');
+
+            if(btnEdit){
+                btnEdit.addEventListener('click', function(){
+                    if(summary) summary.style.display = 'none';
+                    if(editForm) editForm.style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            if(btnCancel){
+                btnCancel.addEventListener('click', function(){
+                    if(editForm) editForm.style.display = 'none';
+                    if(summary) summary.style.display = 'block';
+                });
+            }
+        })();
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

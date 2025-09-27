@@ -1,0 +1,232 @@
+@model SkillSwapApp.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "My Dashboard";
+}
+
+<section class="ds-hero text-center">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Discover Amazing Lessons</h1>
+        <p class="lead text-muted">Browse lessons by subject, connect with talented peers, and start your learning journey today.</p>
+        
+    </div>
+</section>
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info text-center">@TempData["InfoMessage"]</div>
+}
+
+@* Profile summary removed from dashboard; editing is accessible via the Profile nav link *@
+
+@{
+    var offered = (Model.User?.OfferedSkill ?? string.Empty).Trim().ToLower();
+    var matched = Model.OtherUsers
+        .Where(u => ((u.NeededSkill ?? string.Empty).Trim().ToLower()) == offered)
+        .ToList();
+    var others = Model.OtherUsers
+        .Where(u => ((u.NeededSkill ?? string.Empty).Trim().ToLower()) != offered)
+        .ToList();
+}
+
+<!-- 🔹 Best Matches (cards) -->
+<div class="mb-4">
+    <h4 class="mb-3">Best Matches</h4>
+    @if (matched.Any())
+    {
+        <div class="lesson-grid">
+            @foreach (var u in matched)
+            {
+                var initials = string.Join("", (u.FullName ?? "").Split(' ', System.StringSplitOptions.RemoveEmptyEntries).Select(s => s[0])).ToUpperInvariant();
+                <div class="lesson-card" data-category="@u.OfferedSkill">
+                    <div class="lesson-header">
+                        <span class="icon-circle">📘</span>
+                    </div>
+                    <div class="lesson-meta">
+                        <span class="category">@u.OfferedSkill</span>
+                        <span class="rating">⭐ 4.9</span>
+                    </div>
+                    <div class="lesson-title">@u.FullName</div>
+                    <ul class="desc-list">
+                        <li>Offers: @u.OfferedSkill</li>
+                        <li>Needs: @u.NeededSkill</li>
+                    </ul>
+                    <div class="lesson-footer">
+                        <div class="teacher">
+                            <span class="avatar">@initials</span>
+                            <div>
+                                <div>@u.FullName</div>
+                                <small class="text-muted">Tutor</small>
+                            </div>
+                        </div>
+                        @if (Model.BlockedUserIds != null && Model.BlockedUserIds.Contains(u.Id))
+                        {
+                            <button class="swap-btn" disabled title="A request already exists">Requested</button>
+                        }
+                        else
+                        {
+                            <a asp-action="RequestSwap" asp-route-userId="@u.Id" class="swap-btn">Request Lesson</a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-muted">No best matches found.</p>
+    }
+</div>
+
+<!-- 🔹 More Users (non-matching) -->
+@if (others.Any())
+{
+    <div class="mb-4">
+        <h4 class="mb-3">More Users</h4>
+        <div class="lesson-grid">
+            @foreach (var u in others)
+            {
+                var initials = string.Join("", (u.FullName ?? "").Split(' ', System.StringSplitOptions.RemoveEmptyEntries).Select(s => s[0])).ToUpperInvariant();
+                <div class="lesson-card" data-category="@u.OfferedSkill">
+                    <div class="lesson-header">
+                        <span class="icon-circle">📗</span>
+                    </div>
+                    <div class="lesson-meta">
+                        <span class="category">@u.OfferedSkill</span>
+                        <span class="rating">⭐ 4.8</span>
+                    </div>
+                    <div class="lesson-title">@u.FullName</div>
+                    <ul class="desc-list">
+                        <li>Offers: @u.OfferedSkill</li>
+                        <li>Needs: @u.NeededSkill</li>
+                    </ul>
+                    <div class="lesson-footer">
+                        <div class="teacher">
+                            <span class="avatar">@initials</span>
+                            <div>
+                                <div>@u.FullName</div>
+                                <small class="text-muted">Tutor</small>
+                            </div>
+                        </div>
+                        @if (Model.BlockedUserIds != null && Model.BlockedUserIds.Contains(u.Id))
+                        {
+                            <button class="swap-btn" disabled title="A request already exists">Requested</button>
+                        }
+                        else
+                        {
+                            <a asp-action="RequestSwap" asp-route-userId="@u.Id" class="swap-btn">Request Lesson</a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+<!-- 🔹 Incoming Requests (panel style) -->
+<div class="ds-panel">
+    <div class="ds-panel-title"><span class="icon">📥</span><span>Incoming Lesson Requests</span></div>
+    @if (Model.IncomingRequests != null && Model.IncomingRequests.Any())
+    {
+        <table class="req-table">
+            <thead>
+                <tr>
+                    <th>From</th>
+                    <th>Status</th>
+                    <th style="width:260px">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var req in Model.IncomingRequests)
+                {
+                    <tr>
+                        <td>@req.FromUser.FullName</td>
+                        <td>
+                            @if (req.Status == "Accepted")
+                            {
+                                <span class="badge-done">Accepted</span>
+                            }
+                            else if (req.Status == "Pending")
+                            {
+                                <span class="badge-wait">Waiting...</span>
+                            }
+                            else if (req.Status == "Declined")
+                            {
+                                <span class="badge-declined">Declined</span>
+                            }
+                        </td>
+                        <td>
+                            @if (req.Status == "Pending")
+                            {
+                                <div class="req-actions">
+                                    <a asp-action="AcceptRequest" asp-route-requestId="@req.Id" class="swap-btn btn-pulse">Accept</a>
+                                    <a asp-action="DeclineRequest" asp-route-requestId="@req.Id" class="ghost-btn">Decline</a>
+                                </div>
+                            }
+                            else if (req.Status == "Accepted")
+                            {
+                                <a asp-controller="Dashboard" asp-action="Chat" asp-route-requestId="@req.Id" class="swap-btn">Open Chat</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-icon">📥</div>
+            <div>No incoming requests</div>
+        </div>
+    }
+</div>
+
+<!-- 🔹 Sent Requests (panel style) -->
+<div class="ds-panel">
+    <div class="ds-panel-title"><span class="icon">📤</span><span>Sent Lesson Requests</span></div>
+    @if (Model.SentRequests.Any())
+    {
+        <table class="req-table">
+            <thead>
+                <tr>
+                    <th>To</th>
+                    <th>Status</th>
+                    <th style="width:200px">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var req in Model.SentRequests)
+                {
+                    <tr>
+                        <td>@req.ToUser.FullName</td>
+                        <td>
+                            @if (req.Status == "Accepted")
+                            {
+                                <span class="badge-done">Accepted</span>
+                            }
+                            else if (req.Status == "Pending")
+                            {
+                                <span class="badge-wait">Waiting...</span>
+                            }
+                            else if (req.Status == "Declined")
+                            {
+                                <span class="badge-declined">Declined</span>
+                            }
+                        </td>
+                        <td>
+                            @if (req.Status == "Accepted")
+                            {
+                                <a asp-controller="Dashboard" asp-action="Chat" asp-route-requestId="@req.Id" class="swap-btn">Open Chat</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-icon">📤</div>
+            <div>No sent requests</div>
+        </div>
+    }
+</div>

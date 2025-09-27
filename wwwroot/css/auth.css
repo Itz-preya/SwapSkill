@@ -1,0 +1,124 @@
+body {
+    background: #10182b;
+    color: #fff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    gap: 3rem;
+}
+.auth-card {
+    background: #1a2540;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,180,255,0.10);
+    padding: 2.5rem 2rem 2rem 2rem;
+    width: 400px;
+    max-width: 95vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.auth-tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+.auth-tabs button {
+    flex: 1;
+    padding: 0.7rem 0;
+    border: none;
+    background: #232e4a;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.auth-tabs button.active, .auth-tabs button:hover {
+    background: #00b4ff;
+    color: #fff;
+}
+.auth-form label {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+}
+.auth-form input {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 6px;
+    border: none;
+    background: #232e4a;
+    color: #fff;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+.auth-form input:focus {
+    outline: 2px solid #00b4ff;
+}
+.auth-form .btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: #00b4ff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.auth-form .btn:hover {
+    background: #0099cc;
+}
+.auth-info {
+    max-width: 500px;
+    padding: 2rem 0;
+}
+.auth-info h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+.auth-info h1 span {
+    color: #00b4ff;
+}
+.auth-info p {
+    color: #cbe8ff;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+.auth-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+.auth-feature {
+    flex: 1 1 180px;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: #00b4ff;
+    font-size: 1.1rem;
+}
+.auth-feature span {
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+}
+@media (max-width: 1000px) {
+    .auth-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2rem;
+    }
+    .auth-info {
+        text-align: center;
+        margin: 0 auto;
+    }
+}
