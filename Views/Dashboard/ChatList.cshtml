@@ -2,6 +2,9 @@
 
 <h2 style="color:#fff; margin-bottom:12px;">Chats</h2>
 <div class="chat-list">
+    <div class="chat-search">
+        <input id="chatSearchInput" type="text" placeholder="Search chats..." autocomplete="off" />
+    </div>
     @if (!Model.Any())
     {
         <div class="chat-empty">No chats yet.</div>
@@ -10,7 +13,7 @@
     {
         foreach (var item in Model)
         {
-            <a class="chat-item" asp-controller="Chat" asp-action="Chat" asp-route-userId="@item.PartnerId">
+            <a class="chat-item" asp-controller="Chat" asp-action="Chat" asp-route-userId="@item.PartnerId" data-name="@item.PartnerName">
                 <div class="chat-avatar">@((item.PartnerName ?? "").FirstOrDefault().ToString().ToUpper())</div>
                 <div class="chat-main">
                     <div class="chat-top">
@@ -26,3 +29,17 @@
     }
     
 </div>
+
+<script>
+    (function(){
+        const input = document.getElementById('chatSearchInput');
+        if(!input) return;
+        input.addEventListener('input', function(){
+            const q = input.value.trim().toLowerCase();
+            document.querySelectorAll('.chat-list .chat-item').forEach(function(item){
+                const name = (item.getAttribute('data-name') || '').toLowerCase();
+                item.style.display = name.includes(q) ? '' : 'none';
+            });
+        });
+    })();
+    </script>

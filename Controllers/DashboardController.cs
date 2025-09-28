@@ -286,7 +286,17 @@ namespace SkillSwapApp.Controllers
         {
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login", "Account");
-            return View(); // Views/Dashboard/Home.cshtml
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var featured = _context.Users
+                .Where(u => u.Id != currentUserId
+                            && !string.IsNullOrEmpty(u.FullName)
+                            && !string.IsNullOrEmpty(u.OfferedSkill)
+                            && !string.IsNullOrEmpty(u.NeededSkill))
+                .OrderBy(u => u.FullName)
+                .Take(3)
+                .ToList();
+
+            return View(featured); // Views/Dashboard/Home.cshtml
         }
 
         // TEMP: Development-only cleanup to remove all swap requests

@@ -1,3 +1,5 @@
+@using System.Linq
+@model IEnumerable<SkillSwapApp.Models.ApplicationUser>
 @{
     ViewData["Title"] = "Home";
 }
@@ -35,41 +37,39 @@
 </section>
 <section class="popular-lessons" id="popular">
     <h2>Popular Lessons</h2>
-    <p>Get a taste of what our community has to offer. Join to access the full catalog.</p>
+    <p>Featured student teachers you can connect with now.</p>
     <div class="popular-cards">
-        <div class="popular-card">
-            <div class="popular-icon math"></div>
-            <div class="popular-meta">
-                <span class="category">Mathematics</span>
-                <span class="rating">⭐ 4.9</span>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var user in Model)
+            {
+                <div class="popular-card">
+                    <div class="popular-icon programming"></div>
+                    <div class="popular-meta">
+                        <span class="category programming">@user.OfferedSkill</span>
+                        <span class="rating">⭐ 5.0</span>
+                    </div>
+                    <h3>@user.FullName</h3>
+                    <p>Offers: @user.OfferedSkill<br />Wants to learn: @user.NeededSkill</p>
+                    <a href="@Url.Action("RequestSwap", "Dashboard", new { userId = user.Id })" class="btn primary">Request Swap</a>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="popular-card">
+                <div class="popular-icon"></div>
+                <div class="popular-meta">
+                    <span class="category">Community</span>
+                </div>
+                <h3>No featured users yet</h3>
+                <p>Encourage your peers to join and share skills.</p>
+                <a href="/Dashboard/Index" class="btn primary">Explore Users</a>
             </div>
-            <h3>Calculus Made Simple</h3>
-            <p>Master calculus concepts with interactive examples and real-world applications.</p>
-            <a href="#" class="btn primary">Get Started</a>
-        </div>
-        <div class="popular-card">
-            <div class="popular-icon programming"></div>
-            <div class="popular-meta">
-                <span class="category programming">Programming</span>
-                <span class="rating">⭐ 4.8</span>
-            </div>
-            <h3>Python for Beginners</h3>
-            <p>Learn Python programming from scratch with hands-on projects.</p>
-            <a href="#" class="btn primary">Get Started</a>
-        </div>
-        <div class="popular-card">
-            <div class="popular-icon music"></div>
-            <div class="popular-meta">
-                <span class="category music">Music</span>
-                <span class="rating">⭐ 5.0</span>
-            </div>
-            <h3>Acoustic Guitar Basics</h3>
-            <p>Start your musical journey with fundamental guitar techniques.</p>
-            <a href="#" class="btn primary">Get Started</a>
-        </div>
+        }
     </div>
     <div style="text-align:center; margin-top:2rem;">
-        <a href="#" class="btn secondary">Join to See All Lessons</a>
+        <a href="/Dashboard/Index" class="btn secondary">See More</a>
     </div>
 </section>
 <section class="about" id="team">
