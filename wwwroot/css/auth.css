@@ -29,7 +29,7 @@ body {
     flex: 1;
     padding: 0.7rem 0;
     border: none;
-    background: #232e4a;
+    background: #15243a;
     color: #fff;
     font-size: 1.1rem;
     font-weight: 600;
@@ -38,8 +38,8 @@ body {
     transition: background 0.2s;
 }
 .auth-tabs button.active, .auth-tabs button:hover {
-    background: #00b4ff;
-    color: #fff;
+    background: var(--primary);
+    color: #001018;
 }
 .auth-form label {
     display: block;
@@ -57,23 +57,24 @@ body {
     font-size: 1rem;
 }
 .auth-form input:focus {
-    outline: 2px solid #00b4ff;
+    outline: 2px solid var(--primary);
 }
 .auth-form .btn {
     width: 100%;
     padding: 0.9rem;
-    background: #00b4ff;
-    color: #fff;
+    background: linear-gradient(180deg, var(--primary), var(--primary-2));
+    color: #001018;
     border: none;
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: bold;
     margin-top: 0.5rem;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: filter 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 16px rgba(0,200,210,.22);
 }
 .auth-form .btn:hover {
-    background: #0099cc;
+    filter: brightness(1.05);
 }
 .auth-info {
     max-width: 500px;
@@ -85,7 +86,7 @@ body {
     margin-bottom: 1rem;
 }
 .auth-info h1 span {
-    color: #00b4ff;
+    color: var(--primary);
 }
 .auth-info p {
     color: #cbe8ff;
@@ -103,7 +104,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.7rem;
-    color: #00b4ff;
+    color: var(--primary);
     font-size: 1.1rem;
 }
 .auth-feature span {

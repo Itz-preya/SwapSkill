@@ -23,6 +23,7 @@ namespace SkillSwapApp.Controllers
 
         public IActionResult Index()
         {
+            // Logged-in users should land on the dashboard, not the public home
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");

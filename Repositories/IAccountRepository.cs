@@ -1,4 +1,4 @@
-﻿using SkillSwapApp.ViewModels;
+using SkillSwapApp.ViewModels;
 
 namespace SkillSwapApp.Repositories
 {
@@ -8,5 +8,6 @@ namespace SkillSwapApp.Repositories
         bool Login(LoginViewModel model);
         void Logout();
         bool UserExists(string email);
+        void DeleteAllUsers();
     }
 }

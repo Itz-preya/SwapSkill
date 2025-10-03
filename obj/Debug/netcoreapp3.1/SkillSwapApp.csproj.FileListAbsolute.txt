@@ -104,3 +104,5 @@ C:\Users\DELL\source\repos\SkillSwapApp\SkillSwapApp\obj\Debug\netcoreapp3.1\Ski
 C:\Users\DELL\source\repos\SkillSwapApp\SkillSwapApp\obj\Debug\netcoreapp3.1\SkillSwapApp.dll
 C:\Users\DELL\source\repos\SkillSwapApp\SkillSwapApp\obj\Debug\netcoreapp3.1\SkillSwapApp.pdb
 C:\Users\DELL\source\repos\SkillSwapApp\SkillSwapApp\obj\Debug\netcoreapp3.1\SkillSwapApp.genruntimeconfig.cache
+C:\Users\DELL\source\repos\SkillSwapApp\SkillSwapApp\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\RequestSwap.cshtml.g.cs
+C:\Users\DELL\source\repos\SkillSwapApp\SkillSwapApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Landing.cshtml.g.cs

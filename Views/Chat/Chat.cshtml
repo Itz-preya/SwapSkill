@@ -110,10 +110,6 @@
             connection.invoke("SendMessage", requestId, currentUserId, otherUserId, message)
                 .catch(err => console.error(err.toString()));
 
-            // Optimistically render my bubble
-            appendBubble(currentUserId, message, new Date());
-            scrollToBottom();
-
             messageInput.value = "";
         }
 

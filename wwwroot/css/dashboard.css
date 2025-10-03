@@ -126,3 +126,12 @@ body.ds{background:var(--ds-bg);color:var(--ds-text);}
  .chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid #1b2a3a;background:#0f1c28;border-bottom-left-radius:10px;border-bottom-right-radius:10px}
  .chat-input input{flex:1;background:#0b1621;border:1px solid #203244;color:#cfe6ff;border-radius:20px;padding:10px 14px}
  .chat-input button{background:#11c5e6;border:none;color:#062c3a;padding:10px 16px;border-radius:20px;font-weight:700}
+
+/* ===== Layout helpers for non-landing pages ===== */
+/* Ensure content area grows so footer sits at the bottom */
+.page-main{min-height:calc(100vh - 120px)}
+
+/* Override landing.css footer look on dashboard pages */
+/* Footer in _Layout has classes .footer.text-muted */
+footer.footer.text-muted{background:transparent!important;border-radius:0!important;padding:16px 0!important;box-shadow:none!important}
+footer.footer.text-muted .container{color:var(--ds-muted)}

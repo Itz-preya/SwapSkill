@@ -19,11 +19,21 @@
 
 @{
     var offered = (Model.User?.OfferedSkill ?? string.Empty).Trim().ToLower();
+    var needed  = (Model.User?.NeededSkill  ?? string.Empty).Trim().ToLower();
+
+    bool IsPerfect(SkillSwapApp.Models.ApplicationUser u)
+    {
+        var uNeed  = (u.NeededSkill  ?? string.Empty).Trim().ToLower();
+        var uOffer = (u.OfferedSkill ?? string.Empty).Trim().ToLower();
+        return (!string.IsNullOrWhiteSpace(offered) && uNeed == offered)
+            && (!string.IsNullOrWhiteSpace(needed)  && uOffer == needed);
+    }
+
     var matched = Model.OtherUsers
-        .Where(u => ((u.NeededSkill ?? string.Empty).Trim().ToLower()) == offered)
+        .Where(u => IsPerfect(u))
         .ToList();
     var others = Model.OtherUsers
-        .Where(u => ((u.NeededSkill ?? string.Empty).Trim().ToLower()) != offered)
+        .Where(u => !IsPerfect(u))
         .ToList();
 }
 

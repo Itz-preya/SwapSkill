@@ -35,12 +35,30 @@ namespace SkillSwapApp.Controllers
             var skills = allSkills.Where(s => s.UserId == userId).ToList();
             var otherUsers = _context.Users.Where(u => u.Id != userId).ToList();
 
-            // Prioritize users whose NeededSkill matches the current user's OfferedSkill
+            // Prioritize BEST MATCHES:
+            // 1) Perfect match: they NEED my OfferedSkill AND OFFER my NeededSkill
+            // 2) Partial match: they NEED my OfferedSkill OR OFFER my NeededSkill
             var offeredSkill = user?.OfferedSkill?.Trim().ToLower();
-            if (!string.IsNullOrWhiteSpace(offeredSkill))
+            var neededSkill  = user?.NeededSkill?.Trim().ToLower();
+            if (!string.IsNullOrWhiteSpace(offeredSkill) || !string.IsNullOrWhiteSpace(neededSkill))
             {
                 otherUsers = otherUsers
-                    .OrderByDescending(u => (u.NeededSkill ?? string.Empty).Trim().ToLower() == offeredSkill)
+                    .OrderByDescending(u =>
+                    {
+                        var uNeed   = (u.NeededSkill ?? string.Empty).Trim().ToLower();
+                        var uOffer  = (u.OfferedSkill ?? string.Empty).Trim().ToLower();
+                        bool perfect = (!string.IsNullOrWhiteSpace(offeredSkill) && uNeed == offeredSkill)
+                                       && (!string.IsNullOrWhiteSpace(neededSkill) && uOffer == neededSkill);
+                        return perfect; // true first
+                    })
+                    .ThenByDescending(u =>
+                    {
+                        var uNeed   = (u.NeededSkill ?? string.Empty).Trim().ToLower();
+                        var uOffer  = (u.OfferedSkill ?? string.Empty).Trim().ToLower();
+                        bool partial = (!string.IsNullOrWhiteSpace(offeredSkill) && uNeed == offeredSkill)
+                                       || (!string.IsNullOrWhiteSpace(neededSkill) && uOffer == neededSkill);
+                        return partial; // true next
+                    })
                     .ThenBy(u => u.FullName)
                     .ToList();
             }
@@ -85,6 +103,7 @@ namespace SkillSwapApp.Controllers
                 return RedirectToAction("Index");
 
             // Guard: prevent duplicate requests between the same two users
+            //once we send request then we can not send multiple request to same user 
             var existing = _context.SwapRequests
                 .FirstOrDefault(r =>
                     (
@@ -153,7 +172,6 @@ namespace SkillSwapApp.Controllers
             var oldNeeded = user.NeededSkill;
 
             user.FullName = model.FullName;
-            user.UserName = model.UserName;
             user.Email = model.Email;
             user.OfferedSkill = model.OfferedSkill;
             user.NeededSkill = model.NeededSkill;
@@ -175,7 +193,7 @@ namespace SkillSwapApp.Controllers
 
                 foreach (var req in toLock)
                 {
-                    req.ReadOnly = true;
+                    req.ReadOnly = true;    // here readonly true means now 1 of user edit her skill so it do chat with old user is readonly
                 }
 
                 if (toLock.Count > 0)
@@ -185,7 +203,8 @@ namespace SkillSwapApp.Controllers
             }
 
             TempData["SuccessMessage"] = "Profile updated successfully!";
-            return RedirectToAction("Edit");
+            // Redirect to dashboard so best matches refresh immediately with new skills
+            return RedirectToAction("Index");
         }
 
         // Accept request

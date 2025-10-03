@@ -1,27 +1,29 @@
-﻿@{
+@{
     Layout = null;
 }
 @model SkillSwapApp.ViewModels.LoginViewModel
 @{
     ViewData["Title"] = "Login";
 }
+<link rel="stylesheet" href="~/css/theme.css" />
 <link rel="stylesheet" href="~/css/auth.css" />
 <div class="auth-container">
     <div class="auth-card">
-        <h2 style="text-align:center;">Join Skill Swap</h2>
         <div style="text-align:center;color:#cbe8ff;margin-bottom:1rem;">Start teaching and learning with peers today</div>
         <div class="auth-tabs">
             <button type="button" class="active" data-tab="login" onclick="window.location.href='/Account/Login'">Log In</button>
             <button type="button" data-tab="register" onclick="window.location.href='/Account/Register'">Sign Up</button>
         </div>
         <form asp-action="Login" method="post" class="auth-form login">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <label asp-for="Email">Email</label>
-            <input asp-for="Email" placeholder="Enter your email" />
+            <input asp-for="Email" placeholder="Enter your email" required />
             <span asp-validation-for="Email"></span>
             <label asp-for="Password">Password</label>
-            <input asp-for="Password" type="password" placeholder="Enter your password" />
+            <input asp-for="Password" type="password" placeholder="Enter your password" required />
             <span asp-validation-for="Password"></span>
-            <input asp-for="RememberMe" /> <label asp-for="RememberMe">Remember Me</label>
+           
             <button type="submit" class="btn">Log In</button>
         </form>
     </div>

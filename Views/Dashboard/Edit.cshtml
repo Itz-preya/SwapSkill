@@ -22,7 +22,7 @@
         <div class="avatar">@Model.FullName?.FirstOrDefault()</div>
         <div>
             <div class="user-name">@Model.FullName</div>
-            <div class="ds-meta">@Model.UserName</div>
+            <div class="ds-meta">@Model.Email</div>
         </div>
     </div>
     <div class="user-skill-row">
@@ -54,11 +54,7 @@
         <input asp-for="FullName" class="form-control" required />
         <span asp-validation-for="FullName" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="UserName"></label>
-        <input asp-for="UserName" class="form-control" required />
-        <span asp-validation-for="UserName" class="text-danger"></span>
-    </div>
+    
     <div class="form-group">
         <label asp-for="Email"></label>
         <input asp-for="Email" class="form-control" required type="email" />
@@ -66,12 +62,78 @@
     </div>
     <div class="form-group">
         <label asp-for="OfferedSkill"></label>
-        <input asp-for="OfferedSkill" class="form-control" required />
+        <select asp-for="OfferedSkill" class="form-control" required>
+            <option value="" disabled selected>-- Select a skill --</option>
+            <option>Programming</option>
+            <option>Web Development</option>
+            <option>Graphic Design</option>
+            <option>Video Editing</option>
+            <option>Photography</option>
+            <option>Data Analysis</option>
+            <option>Digital Marketing</option>
+            <option>Content Writing</option>
+            <option>UI/UX Design</option>
+            <option>Public Speaking</option>
+            <option>Music</option>
+            <option>Language Tutoring</option>
+            <option>Cooking</option>
+            <option>Fitness Training</option>
+            <option>Math Tutoring</option>
+            <option>Science Tutoring</option>
+            <option>Business Strategy</option>
+            <option>Accounting</option>
+            <option>Sewing</option>
+            <option>Crafting</option>
+            <option>Gardening</option>
+            <option>Car Repair</option>
+            <option>First Aid</option>
+            <option>Project Management</option>
+            <option>Cybersecurity</option>
+            <option>Cloud Computing</option>
+            <option>Machine Learning</option>
+            <option>DevOps</option>
+            <option>QA Testing</option>
+            <option>Networking</option>
+            <option>Other</option>
+        </select>
         <span asp-validation-for="OfferedSkill" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="NeededSkill"></label>
-        <input asp-for="NeededSkill" class="form-control" required />
+        <select asp-for="NeededSkill" class="form-control" required>
+            <option value="" disabled selected>-- Select a skill --</option>
+            <option>Programming</option>
+            <option>Web Development</option>
+            <option>Graphic Design</option>
+            <option>Video Editing</option>
+            <option>Photography</option>
+            <option>Data Analysis</option>
+            <option>Digital Marketing</option>
+            <option>Content Writing</option>
+            <option>UI/UX Design</option>
+            <option>Public Speaking</option>
+            <option>Music</option>
+            <option>Language Tutoring</option>
+            <option>Cooking</option>
+            <option>Fitness Training</option>
+            <option>Math Tutoring</option>
+            <option>Science Tutoring</option>
+            <option>Business Strategy</option>
+            <option>Accounting</option>
+            <option>Sewing</option>
+            <option>Crafting</option>
+            <option>Gardening</option>
+            <option>Car Repair</option>
+            <option>First Aid</option>
+            <option>Project Management</option>
+            <option>Cybersecurity</option>
+            <option>Cloud Computing</option>
+            <option>Machine Learning</option>
+            <option>DevOps</option>
+            <option>QA Testing</option>
+            <option>Networking</option>
+            <option>Other</option>
+        </select>
         <span asp-validation-for="NeededSkill" class="text-danger"></span>
     </div>
     <div class="btn-row">

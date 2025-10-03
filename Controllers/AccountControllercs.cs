@@ -10,7 +10,7 @@ namespace SkillSwapApp.Controllers
 
         public AccountController(IAccountRepository accountRepository)
         {
-            _accountRepository = accountRepository;
+            _accountRepository = accountRepository;  //inject dependency
         }
 
         [HttpGet]

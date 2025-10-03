@@ -7,11 +7,11 @@ namespace SkillSwapApp.Models
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }  // e.g. "C#", "Cooking"
+        public string Name { get; set; }  
 
-        public string Level { get; set; } // Beginner, Intermediate, Expert
+        
 
-        // Relation to User
+       
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
     }

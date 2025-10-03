@@ -4,9 +4,17 @@ navLinks.forEach(link => {
     link.addEventListener('click', function(e) {
         if (this.hash) {
             e.preventDefault();
-            document.querySelector(this.hash).scrollIntoView({ behavior: 'smooth' });
+            const target = document.querySelector(this.hash);
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
             navLinks.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
+        }
+        // Close mobile menu on selection
+        const primaryNav = document.getElementById('primaryNav');
+        const toggleBtn = document.querySelector('.menu-toggle');
+        if (primaryNav && toggleBtn && primaryNav.classList.contains('open')) {
+            primaryNav.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', 'false');
         }
     });
 });
@@ -24,6 +32,16 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+
+// Mobile menu toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const primaryNav = document.getElementById('primaryNav');
+if (menuToggle && primaryNav) {
+    menuToggle.addEventListener('click', () => {
+        const isOpen = primaryNav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+}
 
 document.getElementById('loginBtn').onclick = function() {
     window.location.href = '/Account/Login';

@@ -13,9 +13,7 @@ namespace SkillSwapApp.Models
         [Required]
         public string NeededSkill { get; set; }
         [Required]
-        [EmailAddress]
+        [EmailAddress]  // data annotations for email format validation
         public override string Email { get; set; }
-        [Required]
-        public override string UserName { get; set; }
     }
 }

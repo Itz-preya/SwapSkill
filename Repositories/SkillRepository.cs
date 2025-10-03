@@ -8,7 +8,7 @@ namespace SkillSwapApp.Repositories
     public class SkillRepository : ISkillRepository
     {
         private readonly ApplicationDbContext _context;
-
+        
         public SkillRepository(ApplicationDbContext context)
         {
             _context = context;
@@ -16,6 +16,7 @@ namespace SkillSwapApp.Repositories
 
         public IEnumerable<Skill> GetSkillsByUser(string userId)
         {
+         
             return _context.Skills.Where(s => s.UserId == userId).ToList();
         }
 

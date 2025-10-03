@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Policy;
 
 namespace SkillSwapApp.Models
 {
@@ -9,13 +10,17 @@ namespace SkillSwapApp.Models
         [Key]
         public int Id { get; set; }
 
+
+
         public string FromUserId { get; set; }
         [ForeignKey("FromUserId")]
-        public ApplicationUser FromUser { get; set; }
+        public ApplicationUser FromUser { get; set; }    //One-to-Many (FromUser ? SwapRequest):
+                                                         //One user can send many swap requests.
 
         public string ToUserId { get; set; }
         [ForeignKey("ToUserId")]
-        public ApplicationUser ToUser { get; set; }
+        public ApplicationUser ToUser { get; set; }   //One-to-Many (ToUser ? SwapRequest):
+                                                      // One user can receive many swap requests.
 
         // Add these two properties
         public string OfferedSkill { get; set; }
